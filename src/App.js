@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ReactMapGL,{NavigationControl} from "react-map-gl";
 
-function App() {
+export default function App() {
+  const [viewport, setViewport] = useState({
+    latitude: 12.910582,
+    longitude: 77.564005,
+    width: "100vw",
+    height: "100vh",
+    zoom: 10
+  });
+  const navControlStyle= {
+    right: 10,
+    top: 10
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ReactMapGL
+        {...viewport}
+        mapboxApiAccessToken='pk.eyJ1Ijoicml0d2lrc2hhdyIsImEiOiJja252ajNkdHEwbmZpMnBvYXk3cjA0bXJhIn0.B4U5Vq1wv_TExdRy0QmKFA'
+        mapStyle="mapbox://styles/ritwikshaw/cknvkr1341qec17oab30uzrm6"
+        onViewportChange={viewport => {
+          setViewport(viewport);
+        }}
+      >
+        <NavigationControl style={navControlStyle} />
+      </ReactMapGL>
     </div>
   );
 }
-
-export default App;
